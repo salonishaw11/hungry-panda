@@ -1,9 +1,9 @@
 import RestaurantCard, { withVegLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
-import resList from "../utils/mockData";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { RES_LIST_URL } from "../utils/constants";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   // Local State Variable - Super powerful variable
@@ -12,6 +12,7 @@ const Body = () => {
   const [listOfRestaurant, setListOfRestraunt] = useState([]);
 
   const RestaurantCardVegLabel = withVegLabel(RestaurantCard);
+  const { loggedInUser, setUser } = useContext(UserContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -73,6 +74,12 @@ const Body = () => {
           >
             Top Rated Restaurants
           </button>
+          <input
+            className="border border-solid border-black"
+            type="text"
+            value={loggedInUser}
+            onChange={(e) => setUser(e.target.value)}
+          />
         </div>
       </div>
       <div className="flex flex-wrap">

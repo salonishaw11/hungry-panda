@@ -1,9 +1,11 @@
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+import React from "react";
+import { useState } from "react";
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
+  const [showIndex, setShowIndex] = useState(false);
   const resInfo = useRestaurantMenu(resId);
   const categories =
     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
@@ -24,8 +26,12 @@ const RestaurantMenu = () => {
         {resInfo?.cards[0]?.card?.card?.info?.cuisines.join(",")} -{" "}
         {resInfo?.cards[0]?.card?.card?.info?.costForTwoMessage}
       </p>
-      {categories?.map((c) => (
-        <RestaurantCategory data={c.card.card} />
+      {categories?.map((c, index) => (
+        <RestaurantCategory
+          data={c.card.card}
+          showItems={index == showIndex ? true : false}
+          setShowIndex={() => setShowIndex(index)}
+        />
       ))}
     </div>
   );
