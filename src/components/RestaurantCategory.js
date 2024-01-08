@@ -18,13 +18,7 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
           </span>
           <span>🔽</span>
         </div>
-        {showItems && (
-          <div>
-            {data.itemCards.map((c) => (
-              <ItemList item={c.card.info} />
-            ))}
-          </div>
-        )}
+        {showItems && <ItemList items={data.itemCards} />}
       </div>
     </div>
   );
